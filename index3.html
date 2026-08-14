@@ -1,0 +1,2188 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BookHaven - Online Book Store</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================
+           GLOBAL
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5efe6;
+            color: #29251f;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #263f32;
+            color: white;
+            padding: 18px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            max-width: 1250px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 29px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #dfb274;
+            font-style: italic;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-box {
+            flex: 1;
+            max-width: 550px;
+            min-width: 220px;
+
+            display: flex;
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 5px;
+
+            overflow: hidden;
+        }
+
+        .search-box input {
+            flex: 1;
+
+            padding: 12px 15px;
+
+            border: none;
+            outline: none;
+
+            background: rgba(255,255,255,0.08);
+            color: white;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.65);
+        }
+
+        .search-box button {
+            border: none;
+
+            background: #d2a261;
+            color: #263f32;
+
+            padding: 0 20px;
+
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .search-box button:hover {
+            background: #e4bc86;
+        }
+
+
+        /* =========================
+           LIBRARY BUTTON
+        ========================= */
+
+        #libraryBtn {
+            margin-left: auto;
+
+            background: transparent;
+
+            border: 1px solid #d2a261;
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        #libraryBtn:hover {
+            background: rgba(210,162,97,0.15);
+        }
+
+        #libraryCount {
+            display: inline-flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background: #b54d36;
+
+            width: 21px;
+            height: 21px;
+
+            border-radius: 50%;
+
+            margin-left: 5px;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           CATEGORY BAR
+        ========================= */
+
+        .category-section {
+            background: #1e3429;
+        }
+
+        .categories {
+            max-width: 1250px;
+            margin: auto;
+
+            display: flex;
+
+            gap: 10px;
+
+            padding: 14px 30px;
+
+            overflow-x: auto;
+        }
+
+        .categories button {
+            background: transparent;
+
+            border: 1px solid rgba(255,255,255,0.3);
+
+            color: white;
+
+            padding: 8px 17px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        .categories button:hover {
+            border-color: #d5a86e;
+        }
+
+        .categories button.active {
+            background: #d2a261;
+
+            color: #20382d;
+
+            border-color: #d2a261;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            max-width: 1250px;
+            margin: auto;
+
+            padding: 55px 30px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-end;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+
+            color: #20382d;
+
+            font-size: clamp(30px, 4vw, 45px);
+        }
+
+        .hero p {
+            margin-top: 8px;
+
+            max-width: 620px;
+
+            color: #6d6254;
+
+            font-size: 15px;
+        }
+
+        #resultLabel {
+            color: #756a5b;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 0 30px 60px;
+        }
+
+        .book-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(205px, 1fr));
+
+            gap: 28px 22px;
+        }
+
+        #message {
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #756a5b;
+
+            font-family: 'Playfair Display', serif;
+
+            font-style: italic;
+        }
+
+
+        /* =========================
+           BOOK CARD
+        ========================= */
+
+        .book-card {
+            background: #fffdf8;
+
+            border: 1px solid rgba(40,35,28,0.12);
+
+            border-radius: 6px;
+
+            overflow: hidden;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+
+            transition: 0.25s;
+
+            cursor: pointer;
+        }
+
+        .book-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow: 0 15px 30px rgba(45,71,57,0.18);
+        }
+
+        .book-image {
+            height: 270px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: #e4d9c8;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: 0.3s;
+        }
+
+        .book-card:hover .book-image img {
+            transform: scale(1.05);
+        }
+
+        .book-spine {
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 6px;
+
+            background: #d2a261;
+
+            z-index: 2;
+        }
+
+        .book-info {
+            padding: 15px;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .book-title {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            min-height: 43px;
+
+            line-height: 1.3;
+        }
+
+        .book-author {
+            color: #7c7061;
+
+            font-size: 12px;
+
+            margin: 5px 0 10px;
+
+            font-style: italic;
+        }
+
+        .book-category {
+            font-size: 11px;
+
+            color: #a05a38;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+
+            font-weight: 600;
+        }
+
+        .book-price {
+            color: #2d4739;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            margin-bottom: 13px;
+        }
+
+        .add-btn {
+            width: 100%;
+
+            border: none;
+
+            background: #2d4739;
+
+            color: white;
+
+            padding: 10px;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+        }
+
+        .add-btn:hover {
+            background: #41614f;
+        }
+
+        .add-btn.added {
+            background: #b54d36;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #756a5b;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           OVERLAY
+        ========================= */
+
+        #overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(20,40,32,0.55);
+
+            display: none;
+
+            z-index: 2000;
+        }
+
+
+        /* =========================
+           LIBRARY PANEL
+        ========================= */
+
+        #libraryPanel {
+            position: fixed;
+
+            top: 0;
+
+            right: -420px;
+
+            width: 400px;
+
+            max-width: 92vw;
+
+            height: 100%;
+
+            background: #fffdf8;
+
+            z-index: 3000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            box-shadow: -8px 0 25px rgba(0,0,0,0.25);
+
+            transition: right 0.3s ease;
+        }
+
+        #libraryPanel.open {
+            right: 0;
+        }
+
+        .library-header {
+            background: #2d4739;
+
+            color: white;
+
+            padding: 19px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .library-header h2 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .library-header button {
+            background: none;
+
+            border: none;
+
+            color: white;
+
+            font-size: 27px;
+
+            cursor: pointer;
+        }
+
+        #libraryItems {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 10px 18px;
+        }
+
+        .library-item {
+            display: flex;
+
+            gap: 12px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #ddd5c8;
+        }
+
+        .library-item img {
+            width: 55px;
+            height: 75px;
+
+            object-fit: cover;
+        }
+
+        .library-details {
+            flex: 1;
+        }
+
+        .library-title {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .library-author {
+            color: #817565;
+
+            font-size: 11px;
+
+            font-style: italic;
+        }
+
+        .quantity {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 8px;
+        }
+
+        .quantity button {
+            width: 23px;
+            height: 23px;
+
+            border: 1px solid #d6cdbd;
+
+            background: #f5efe6;
+
+            cursor: pointer;
+        }
+
+        .remove {
+            border: none !important;
+
+            background: none !important;
+
+            color: #b54d36;
+
+            text-decoration: underline;
+
+            margin-left: auto;
+        }
+
+        .empty-library {
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: #807566;
+
+            font-family: 'Playfair Display', serif;
+
+            font-style: italic;
+        }
+
+        .library-footer {
+            padding: 20px;
+
+            border-top: 1px solid #ddd5c8;
+        }
+
+        .library-total {
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+
+            padding: 13px;
+
+            background: #b54d36;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        .checkout-btn:hover {
+            background: #963d2c;
+        }
+
+        .checkout-btn:disabled {
+            background: #cfc7b9;
+
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           QUICK VIEW
+        ========================= */
+
+        #quickView {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(20,40,32,0.7);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 4000;
+        }
+
+        .quick-modal {
+            background: #fffdf8;
+
+            max-width: 700px;
+
+            width: 100%;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            border-radius: 6px;
+
+            position: relative;
+        }
+
+        .close-quick {
+            position: absolute;
+
+            right: 15px;
+            top: 10px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 27px;
+
+            cursor: pointer;
+        }
+
+        .quick-content {
+            display: flex;
+
+            gap: 30px;
+
+            padding: 35px;
+
+            flex-wrap: wrap;
+        }
+
+        .quick-image {
+            width: 190px;
+        }
+
+        .quick-image img {
+            width: 100%;
+
+            border-radius: 4px;
+
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .quick-info {
+            flex: 1;
+
+            min-width: 250px;
+        }
+
+        .quick-info h2 {
+            font-family: 'Playfair Display', serif;
+
+            font-size: 28px;
+
+            color: #20382d;
+
+            margin-bottom: 7px;
+        }
+
+        .quick-author {
+            color: #796e60;
+
+            font-style: italic;
+        }
+
+        .quick-description {
+            color: #51493e;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin: 18px 0;
+        }
+
+        .quick-price {
+            color: #2d4739;
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================
+           TOAST
+        ========================= */
+
+        #toast {
+            position: fixed;
+
+            bottom: 25px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            background: #20382d;
+
+            color: white;
+
+            padding: 13px 23px;
+
+            border-radius: 4px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.25s;
+
+            z-index: 5000;
+
+            font-size: 13px;
+        }
+
+        #toast.show {
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 650px) {
+
+            header {
+                padding: 15px 18px;
+            }
+
+            .header-container {
+                gap: 12px;
+            }
+
+            .search-box {
+                order: 3;
+
+                width: 100%;
+
+                max-width: 100%;
+            }
+
+            #libraryBtn {
+                margin-left: 0;
+            }
+
+            .hero {
+                padding: 35px 18px 25px;
+            }
+
+            main {
+                padding: 0 18px 50px;
+            }
+
+            .categories {
+                padding: 12px 18px;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+
+                gap: 16px;
+            }
+
+            .book-image {
+                height: 220px;
+            }
+
+            .book-title {
+                font-size: 14px;
+            }
+
+            .quick-content {
+                padding: 25px;
+            }
+
+            .quick-image {
+                width: 140px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="header-container">
+
+        <div class="logo">
+            Book<span>Haven</span>
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by title, author or category..."
+            >
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- LIBRARY -->
+
+        <button id="libraryBtn">
+
+            📚 My Library
+
+            <span id="libraryCount">
+                0
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<section class="category-section">
+
+    <div
+        class="categories"
+        id="categories">
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div>
+
+        <h1 id="heroTitle">
+            Discover Your Next Favorite Book
+        </h1>
+
+        <p>
+            Explore bestselling books, inspiring stories,
+            timeless classics and powerful ideas.
+        </p>
+
+    </div>
+
+    <div id="resultLabel"></div>
+
+</section>
+
+
+<!-- =========================
+     BOOK SECTION
+========================= -->
+
+<main>
+
+    <div id="message"></div>
+
+    <div
+        class="book-grid"
+        id="bookGrid">
+    </div>
+
+</main>
+
+
+
+
+
+<!-- =========================
+     OVERLAY
+========================= -->
+
+<div id="overlay"></div>
+
+
+<!-- =========================
+     LIBRARY PANEL
+========================= -->
+
+<div id="libraryPanel">
+
+    <div class="library-header">
+
+        <h2>
+            My Library
+        </h2>
+
+        <button id="closeLibrary">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="libraryItems"></div>
+
+
+    <div class="library-footer">
+
+        <div class="library-total">
+
+            <span>
+                Total
+            </span>
+
+            <span id="libraryTotal">
+                ₹0
+            </span>
+
+        </div>
+
+        <button
+            class="checkout-btn"
+            id="checkoutBtn">
+
+            Checkout
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     QUICK VIEW
+========================= -->
+
+<div id="quickView">
+
+    <div class="quick-modal">
+
+        <button
+            class="close-quick"
+            id="closeQuick">
+
+            ×
+
+        </button>
+
+        <div
+            class="quick-content"
+            id="quickContent">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div id="toast"></div>
+
+
+<script>
+
+    /* =================================
+       ELEMENTS
+    ================================= */
+
+    const bookGrid =
+        document.getElementById("bookGrid");
+
+    const message =
+        document.getElementById("message");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const searchBtn =
+        document.getElementById("searchBtn");
+
+    const categories =
+        document.getElementById("categories");
+
+    const libraryBtn =
+        document.getElementById("libraryBtn");
+
+    const libraryCount =
+        document.getElementById("libraryCount");
+
+    const libraryPanel =
+        document.getElementById("libraryPanel");
+
+    const closeLibrary =
+        document.getElementById("closeLibrary");
+
+    const overlay =
+        document.getElementById("overlay");
+
+    const libraryItems =
+        document.getElementById("libraryItems");
+
+    const libraryTotal =
+        document.getElementById("libraryTotal");
+
+    const checkoutBtn =
+        document.getElementById("checkoutBtn");
+
+    const heroTitle =
+        document.getElementById("heroTitle");
+
+    const resultLabel =
+        document.getElementById("resultLabel");
+
+    const quickView =
+        document.getElementById("quickView");
+
+    const quickContent =
+        document.getElementById("quickContent");
+
+    const closeQuick =
+        document.getElementById("closeQuick");
+
+    const toast =
+        document.getElementById("toast");
+
+
+    /* =================================
+       CATEGORIES
+    ================================= */
+
+    const categoryList = [
+
+        "All Books",
+        "Bestsellers",
+        "Self Help",
+        "Fiction",
+        "Mystery",
+        "Romance",
+        "Biography",
+        "Business",
+        "Science"
+
+    ];
+
+
+    /* =================================
+       20 BOOKS
+    ================================= */
+
+    const books = [
+
+        {
+            id: 1,
+            title: "Atomic Habits",
+            author: "James Clear",
+            category: "Self Help",
+            price: 499,
+            image: "https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg",
+            description: "A practical guide to building good habits and breaking bad ones through small, consistent changes."
+        },
+
+        {
+            id: 2,
+            title: "The Psychology of Money",
+            author: "Morgan Housel",
+            category: "Business",
+            price: 399,
+            image: "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
+            description: "A fascinating exploration of how people think about money, wealth, investing and financial decisions."
+        },
+
+        {
+            id: 3,
+            title: "Ikigai",
+            author: "Héctor García",
+            category: "Self Help",
+            price: 299,
+            image: "https://covers.openlibrary.org/b/isbn/9780143130727-L.jpg",
+            description: "Discover the Japanese philosophy of finding purpose and meaning in everyday life."
+        },
+
+        {
+            id: 4,
+            title: "The Silent Patient",
+            author: "Alex Michaelides",
+            category: "Mystery",
+            price: 520,
+            image: "https://covers.openlibrary.org/b/isbn/9781250301697-L.jpg",
+            description: "A psychological thriller about a famous painter who suddenly stops speaking after a shocking crime."
+        },
+
+        {
+            id: 5,
+            title: "The Midnight Library",
+            author: "Matt Haig",
+            category: "Fiction",
+            price: 450,
+            image: "https://covers.openlibrary.org/b/isbn/9780525559474-L.jpg",
+            description: "A magical library gives Nora the opportunity to explore the different lives she might have lived."
+        },
+
+        {
+            id: 6,
+            title: "Deep Work",
+            author: "Cal Newport",
+            category: "Business",
+            price: 550,
+            image: "https://covers.openlibrary.org/b/isbn/9781455586691-L.jpg",
+            description: "Learn how focused and distraction-free work can improve productivity and professional success."
+        },
+
+        {
+            id: 7,
+            title: "The Kite Runner",
+            author: "Khaled Hosseini",
+            category: "Fiction",
+            price: 399,
+            image: "https://covers.openlibrary.org/b/isbn/9781594631931-L.jpg",
+            description: "A moving story of friendship, family, guilt and redemption set against Afghanistan's history."
+        },
+
+        {
+            id: 8,
+            title: "Rich Dad Poor Dad",
+            author: "Robert Kiyosaki",
+            category: "Business",
+            price: 450,
+            image: "https://covers.openlibrary.org/b/isbn/9781612680194-L.jpg",
+            description: "A popular personal-finance book about money management, investing and financial independence."
+        },
+
+        {
+            id: 9,
+            title: "The Alchemist",
+            author: "Paulo Coelho",
+            category: "Fiction",
+            price: 350,
+            image: "https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",
+            description: "A young shepherd travels in search of treasure and discovers lessons about dreams and destiny."
+        },
+
+        {
+            id: 10,
+            title: "The 7 Habits of Highly Effective People",
+            author: "Stephen R. Covey",
+            category: "Self Help",
+            price: 499,
+            image: "https://covers.openlibrary.org/b/isbn/9781982137274-L.jpg",
+            description: "A timeless framework for improving personal effectiveness and building strong relationships."
+        },
+
+        {
+            id: 11,
+            title: "Harry Potter and the Philosopher's Stone",
+            author: "J.K. Rowling",
+            category: "Fiction",
+            price: 599,
+            image: "https://covers.openlibrary.org/b/isbn/9780590353427-L.jpg",
+            description: "Harry Potter discovers the magical world and begins his unforgettable journey at Hogwarts."
+        },
+
+        {
+            id: 12,
+            title: "Think and Grow Rich",
+            author: "Napoleon Hill",
+            category: "Business",
+            price: 399,
+            image: "https://covers.openlibrary.org/b/isbn/9781585424337-L.jpg",
+            description: "A classic guide focused on mindset, ambition, persistence and achieving financial success."
+        },
+
+        {
+            id: 13,
+            title: "It Ends With Us",
+            author: "Colleen Hoover",
+            category: "Romance",
+            price: 499,
+            image: "https://covers.openlibrary.org/b/isbn/9781501110368-L.jpg",
+            description: "An emotional story about love, relationships, difficult choices and personal strength."
+        },
+
+        {
+            id: 14,
+            title: "Becoming",
+            author: "Michelle Obama",
+            category: "Biography",
+            price: 699,
+            image: "https://covers.openlibrary.org/b/isbn/9781524763138-L.jpg",
+            description: "Michelle Obama shares the experiences that shaped her childhood, career and life journey."
+        },
+
+        {
+            id: 15,
+            title: "Sapiens",
+            author: "Yuval Noah Harari",
+            category: "Science",
+            price: 650,
+            image: "https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",
+            description: "An engaging exploration of human history and the forces that shaped modern civilization."
+        },
+
+        {
+            id: 16,
+            title: "The Power of Now",
+            author: "Eckhart Tolle",
+            category: "Self Help",
+            price: 425,
+            image: "https://covers.openlibrary.org/b/isbn/9781577314806-L.jpg",
+            description: "A guide to mindfulness, awareness and learning how to live fully in the present moment."
+        },
+
+        {
+            id: 17,
+            title: "Gone Girl",
+            author: "Gillian Flynn",
+            category: "Mystery",
+            price: 480,
+            image: "https://covers.openlibrary.org/b/isbn/9780553418361-L.jpg",
+            description: "A gripping mystery about a disappearance, marriage and secrets hidden beneath the surface."
+        },
+
+        {
+            id: 18,
+            title: "Pride and Prejudice",
+            author: "Jane Austen",
+            category: "Romance",
+            price: 299,
+            image: "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+            description: "A timeless story of love, social expectations, misunderstandings and personal growth."
+        },
+
+        {
+            id: 19,
+            title: "Steve Jobs",
+            author: "Walter Isaacson",
+            category: "Biography",
+            price: 750,
+            image: "https://covers.openlibrary.org/b/isbn/9781451648539-L.jpg",
+            description: "The life story of Steve Jobs and his extraordinary influence on technology and design."
+        },
+
+        {
+            id: 20,
+            title: "A Brief History of Time",
+            author: "Stephen Hawking",
+            category: "Science",
+            price: 599,
+            image: "https://covers.openlibrary.org/b/isbn/9780553380163-L.jpg",
+            description: "An accessible introduction to the universe, time, black holes and modern physics."
+        }
+
+    ];
+
+
+    /* =================================
+       CART
+    ================================= */
+
+    let library = {};
+
+    let currentBooks = {};
+
+
+    /* =================================
+       CATEGORY BUTTONS
+    ================================= */
+
+    categoryList.forEach((category, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent = category;
+
+        if (index === 0) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".categories button")
+                .forEach(btn => {
+
+                    btn.classList.remove("active");
+
+                });
+
+            button.classList.add("active");
+
+            searchInput.value = "";
+
+            if (category === "All Books") {
+
+                displayBooks(
+                    books,
+                    "All Books"
+                );
+
+            } else if (category === "Bestsellers") {
+
+                displayBooks(
+                    books.slice(0, 8),
+                    "Bestsellers"
+                );
+
+            } else {
+
+                const filtered =
+                    books.filter(book =>
+                        book.category === category
+                    );
+
+                displayBooks(
+                    filtered,
+                    category
+                );
+
+            }
+
+        });
+
+        categories.appendChild(button);
+
+    });
+
+
+    /* =================================
+       DISPLAY BOOKS
+    ================================= */
+
+    function displayBooks(bookList, label) {
+
+        bookGrid.innerHTML = "";
+
+        heroTitle.textContent =
+            label === "All Books"
+            ? "Discover Your Next Favorite Book"
+            : `${label} Collection`;
+
+        resultLabel.textContent =
+            `${bookList.length} books · ${label}`;
+
+        if (bookList.length === 0) {
+
+            message.textContent =
+                "No books found.";
+
+            return;
+
+        }
+
+        message.textContent = "";
+
+
+        bookList.forEach(book => {
+
+            currentBooks[book.id] =
+                book;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "book-card";
+
+
+            card.innerHTML = `
+
+                <div class="book-image">
+
+                    <span class="book-spine"></span>
+
+                    <img
+                        src="${book.image}"
+                        alt="${book.title}"
+                    >
+
+                </div>
+
+
+                <div class="book-info">
+
+                    <div class="book-title">
+                        ${book.title}
+                    </div>
+
+                    <div class="book-author">
+                        ${book.author}
+                    </div>
+
+                    <div class="book-category">
+                        ${book.category}
+                    </div>
+
+                    <div class="book-price">
+                        ₹${book.price}
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        data-id="${book.id}"
+                    >
+                        Add to Library
+                    </button>
+
+                </div>
+
+            `;
+
+
+            bookGrid.appendChild(card);
+
+
+            /* QUICK VIEW */
+
+            card
+                .querySelector(".book-image")
+                .addEventListener(
+                    "click",
+                    () => openQuickView(book.id)
+                );
+
+
+            card
+                .querySelector(".book-title")
+                .addEventListener(
+                    "click",
+                    () => openQuickView(book.id)
+                );
+
+
+            /* ADD BUTTON */
+
+            const addButton =
+                card.querySelector(".add-btn");
+
+
+            addButton.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+
+                    addToLibrary(book);
+
+                    addButton.textContent =
+                        "Added ✓";
+
+                    addButton.classList.add(
+                        "added"
+                    );
+
+                    showToast(
+                        `"${book.title}" added to your library`
+                    );
+
+
+                    setTimeout(() => {
+
+                        addButton.textContent =
+                            "Add to Library";
+
+                        addButton.classList.remove(
+                            "added"
+                        );
+
+                    }, 1200);
+
+                }
+            );
+
+        });
+
+    }
+
+
+    /* =================================
+       ADD TO LIBRARY
+    ================================= */
+
+    function addToLibrary(book) {
+
+        if (library[book.id]) {
+
+            library[book.id].quantity++;
+
+        } else {
+
+            library[book.id] = {
+
+                ...book,
+
+                quantity: 1
+
+            };
+
+        }
+
+        updateLibrary();
+
+    }
+
+
+    /* =================================
+       UPDATE LIBRARY
+    ================================= */
+
+    function updateLibrary() {
+
+        const items =
+            Object.values(library);
+
+        let totalQuantity = 0;
+
+        let totalPrice = 0;
+
+
+        if (items.length === 0) {
+
+            libraryItems.innerHTML = `
+
+                <div class="empty-library">
+
+                    Your library is empty.<br><br>
+
+                    Add books to start your collection.
+
+                </div>
+
+            `;
+
+        } else {
+
+            libraryItems.innerHTML = "";
+
+
+            items.forEach(book => {
+
+                totalQuantity +=
+                    book.quantity;
+
+                totalPrice +=
+                    book.price *
+                    book.quantity;
+
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "library-item";
+
+
+                item.innerHTML = `
+
+                    <img
+                        src="${book.image}"
+                        alt="${book.title}"
+                    >
+
+
+                    <div class="library-details">
+
+                        <div class="library-title">
+                            ${book.title}
+                        </div>
+
+                        <div class="library-author">
+                            ${book.author}
+                        </div>
+
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQuantity(${book.id}, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span>
+                                ${book.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQuantity(${book.id}, 1)"
+                            >
+                                +
+                            </button>
+
+                            <button
+                                class="remove"
+                                onclick="removeBook(${book.id})"
+                            >
+                                Remove
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <strong>
+                        ₹${book.price * book.quantity}
+                    </strong>
+
+                `;
+
+
+                libraryItems.appendChild(item);
+
+            });
+
+        }
+
+
+        libraryCount.textContent =
+            totalQuantity;
+
+        libraryTotal.textContent =
+            `₹${totalPrice}`;
+
+        checkoutBtn.disabled =
+            items.length === 0;
+
+    }
+
+
+    /* =================================
+       QUANTITY
+    ================================= */
+
+    function changeQuantity(id, amount) {
+
+        if (!library[id]) return;
+
+        library[id].quantity +=
+            amount;
+
+
+        if (library[id].quantity <= 0) {
+
+            delete library[id];
+
+        }
+
+        updateLibrary();
+
+    }
+
+
+    /* =================================
+       REMOVE
+    ================================= */
+
+    function removeBook(id) {
+
+        delete library[id];
+
+        updateLibrary();
+
+        showToast(
+            "Book removed from your library"
+        );
+
+    }
+
+
+    /* =================================
+       SEARCH
+    ================================= */
+
+    function searchBooks() {
+
+        const query =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        if (!query) {
+
+            displayBooks(
+                books,
+                "All Books"
+            );
+
+            return;
+
+        }
+
+
+        document
+            .querySelectorAll(".categories button")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+
+        const filtered =
+            books.filter(book =>
+
+                book.title
+                    .toLowerCase()
+                    .includes(query)
+
+                ||
+
+                book.author
+                    .toLowerCase()
+                    .includes(query)
+
+                ||
+
+                book.category
+                    .toLowerCase()
+                    .includes(query)
+
+            );
+
+
+        heroTitle.textContent =
+            `Search Results for "${query}"`;
+
+        resultLabel.textContent =
+            `${filtered.length} books found`;
+
+
+        if (filtered.length === 0) {
+
+            bookGrid.innerHTML = "";
+
+            message.textContent =
+                "No matching books found. Try another title, author or category.";
+
+            return;
+
+        }
+
+
+        message.textContent = "";
+
+        displayBooks(
+            filtered,
+            "Search Results"
+        );
+
+    }
+
+
+    searchBtn.addEventListener(
+        "click",
+        searchBooks
+    );
+
+
+    searchInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                searchBooks();
+
+            }
+
+        }
+    );
+
+
+    /* =================================
+       QUICK VIEW
+    ================================= */
+
+    function openQuickView(id) {
+
+        const book =
+            currentBooks[id];
+
+        if (!book) return;
+
+
+        quickContent.innerHTML = `
+
+            <div class="quick-image">
+
+                <img
+                    src="${book.image}"
+                    alt="${book.title}"
+                >
+
+            </div>
+
+
+            <div class="quick-info">
+
+                <h2>
+                    ${book.title}
+                </h2>
+
+                <div class="quick-author">
+                    By ${book.author}
+                </div>
+
+                <p>
+                    Category:
+                    <strong>
+                        ${book.category}
+                    </strong>
+                </p>
+
+
+                <div class="quick-description">
+
+                    ${book.description}
+
+                </div>
+
+
+                <div class="quick-price">
+
+                    ₹${book.price}
+
+                </div>
+
+
+                <button
+                    class="add-btn"
+                    id="quickAdd"
+                >
+
+                    Add to Library
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        document
+            .getElementById("quickAdd")
+            .addEventListener(
+                "click",
+                () => {
+
+                    addToLibrary(book);
+
+                    showToast(
+                        `"${book.title}" added to your library`
+                    );
+
+                    closeQuickView();
+
+                }
+            );
+
+
+        quickView.style.display =
+            "flex";
+
+    }
+
+
+    function closeQuickView() {
+
+        quickView.style.display =
+            "none";
+
+    }
+
+
+    closeQuick.addEventListener(
+        "click",
+        closeQuickView
+    );
+
+
+    quickView.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target === quickView
+            ) {
+
+                closeQuickView();
+
+            }
+
+        }
+    );
+
+
+    /* =================================
+       LIBRARY OPEN/CLOSE
+    ================================= */
+
+    libraryBtn.addEventListener(
+        "click",
+        () => {
+
+            libraryPanel.classList.add(
+                "open"
+            );
+
+            overlay.style.display =
+                "block";
+
+        }
+    );
+
+
+    function closeLibraryPanel() {
+
+        libraryPanel.classList.remove(
+            "open"
+        );
+
+        overlay.style.display =
+            "none";
+
+    }
+
+
+    closeLibrary.addEventListener(
+        "click",
+        closeLibraryPanel
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        closeLibraryPanel
+    );
+
+
+    /* =================================
+       CHECKOUT
+    ================================= */
+
+    checkoutBtn.addEventListener(
+        "click",
+        () => {
+
+            if (
+                Object.keys(library).length === 0
+            ) {
+                return;
+            }
+
+
+            showToast(
+                "Order placed successfully! 🎉"
+            );
+
+
+            library = {};
+
+            updateLibrary();
+
+            closeLibraryPanel();
+
+        }
+    );
+
+
+    /* =================================
+       TOAST
+    ================================= */
+
+    function showToast(text) {
+
+        toast.textContent =
+            text;
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            showToast.timer
+        );
+
+
+        showToast.timer =
+            setTimeout(() => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            }, 2200);
+
+    }
+
+
+    /* =================================
+       ESCAPE KEY
+    ================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Escape") {
+
+                closeLibraryPanel();
+
+                closeQuickView();
+
+            }
+
+        }
+    );
+
+
+    /* =================================
+       INITIAL LOAD
+    ================================= */
+
+    displayBooks(
+        books,
+        "All Books"
+    );
+
+    updateLibrary();
+
+</script>
+
+</body>
+</html>
+```
