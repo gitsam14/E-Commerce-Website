@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoe Store</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #d9d6cf;
+  }
+  /* Navbar */
+  nav {
+    background: #1c1c24;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    color: #f0eadd;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li a {
+    color: #f0eadd;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  nav .search-box {
+    display: flex;
+  }
+  nav .search-box input {
+    padding: 8px;
+    border: none;
+    width: 200px;
+  }
+  nav .search-box button {
+    padding: 8px 16px;
+    border: none;
+    background: #b7d84a;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Page heading */
+  .page-title {
+    text-align: center;
+    padding: 30px 15px 10px;
+    color: #1c1c24;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  /* Grid container for cards */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 30px 60px;
+  }
+
+  /* Product card */
+  .product-card {
+    background: #eeeae0;
+    border: 1px solid #bbb;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .product-info {
+    padding: 10px 15px;
+    flex-grow: 1;
+  }
+  .product-info p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #222;
+  }
+  .add-to-cart {
+    display: inline-block;
+    background: #b7d84a;
+    padding: 10px 18px;
+    margin: 0 15px 15px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  }
+  .add-to-cart:hover {
+    background: #a4c53f;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="#">HOME</a></li>
+    <li><a href="#">ABOUT</a></li>
+    <li><a href="#">SERVICES</a></li>
+    <li><a href="#">CONTACT US</a></li>
+    <li><a href="#">REGISTER</a></li>
+    <li><a href="#">LOGIN</a></li>
+  </ul>
+  <div class="search-box">
+    <input type="text" placeholder="Search here...">
+    <button>SEARCH</button>
+  </div>
+</nav>
+
+<h1 class="page-title">Our Shoe Collection</h1>
+
+<div class="product-grid">
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJCveVqHLb72XHUo8q-oSpzmurq7ZDRGGsh2iIsW3r6A&s" alt="SkyJump High-Top shoe">
+
+    <div class="product-info">
+      <p><strong>Title:</strong> Trailblaze Runner</p>
+      <p><strong>Price:</strong> ₹4999/-</p>
+      <p><strong>Desc:</strong> Lightweight mesh upper, great for daily workouts</p>
+      <p><strong>Rating:</strong> 8.9</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZfC_-symOZ6b850LQyI5eHPoG2uuP_3aF2D2z5z4Phw&s" alt="SkyJump High-Top shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> SkyJump High-Top</p>
+      <p><strong>Price:</strong> ₹6499/-</p>
+      <p><strong>Desc:</strong> High ankle support built for the court</p>
+      <p><strong>Rating:</strong> 9.1</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPODmWE8TOiYCvawNt1uRooBxBM5rqQ8U0Jvp7jCdKWQ&s" alt="Urban Walk Sneaker shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> Urban Walk Sneaker</p>
+      <p><strong>Price:</strong> ₹3299/-</p>
+      <p><strong>Desc:</strong> Everyday comfort with a classic canvas look</p>
+      <p><strong>Rating:</strong> 8.3</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj6VRJsqSIwirBizdAO3zLa0Q47-rxQNq3hRuQFUcO2g&s" alt="Rockridge Trail Boot shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> Rockridge Trail Boot</p>
+      <p><strong>Price:</strong> ₹7999/-</p>
+      <p><strong>Desc:</strong> Waterproof grip sole for rough terrain hikes</p>
+      <p><strong>Rating:</strong> 9.4</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZH6zs7qH8rA0EeZIw73500CKBd8EoyvZPOVuj6uIVQ&s=10" alt="Oakfield Formal Oxford shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> Oakfield Formal Oxford</p>
+      <p><strong>Price:</strong> ₹5599/-</p>
+      <p><strong>Desc:</strong> Genuine leather finish for office and events</p>
+      <p><strong>Rating:</strong> 8.6</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu6MLgIVP8DNJpvnl7y_O2HNTQ8xq8JbhzPsnhA6W2yQ&s=10" alt="FlexCore Trainer shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> FlexCore Trainer</p>
+      <p><strong>Price:</strong> ₹4599/-</p>
+      <p><strong>Desc:</strong> Flexible sole designed for gym and cross-training</p>
+      <p><strong>Rating:</strong> 8.8</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf39x3w5dDBlJYz0LldeIb0vhZD-EFX4FndfXfjLS8oA&s=10" alt="Breeze Slip-On shoe">
+    <div class="product-info">
+      <p><strong>Title:</strong> Breeze Slip-On</p>
+      <p><strong>Price:</strong> ₹2799/-</p>
+      <p><strong>Desc:</strong> Laceless design for quick, easy wear</p>
+      <p><strong>Rating:</strong> 8.0</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXF_3P3_gPpivgug4RfbcNg-jzaFQlQGRnK7LU83FFSw&s" alt="Coastline Sport Sandal">
+    <div class="product-info">
+      <p><strong>Title:</strong> Coastline Sport Sandal</p>
+      <p><strong>Price:</strong> ₹1999/-</p>
+      <p><strong>Desc:</strong> Adjustable straps, ideal for summer outings</p>
+      <p><strong>Rating:</strong> 7.9</p>
+    </div>
+    <button class="add-to-cart">ADD TO CART</button>
+  </div>
+
+</div>
+<script>
+  console.log(2 + 3);
+</script>
+</body>
+</html>

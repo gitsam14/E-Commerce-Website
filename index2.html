@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Perfume Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 12px;
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           PRODUCT CONTAINER
+        ========================= */
+
+        #productContainer {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 12px;
+            padding: 0 20px;
+        }
+
+        /* =========================
+           PRODUCT CARD
+        ========================= */
+
+        .product-card {
+            width: 148px;
+            min-height: 223px;
+
+            border: 1px solid #d3d3d3;
+            border-radius: 6px;
+
+            padding: 10px 8px 9px;
+
+            background-color: #fff;
+
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            transition: transform 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+        }
+
+        /* =========================
+           PRODUCT IMAGE
+        ========================= */
+
+        .product-image {
+            width: 116px;
+            height: 92px;
+
+            object-fit: cover;
+
+            margin-bottom: 7px;
+        }
+
+        /* =========================
+           PRODUCT INFORMATION
+        ========================= */
+
+        .product-info {
+            width: 100%;
+            text-align: center;
+
+            font-size: 10px;
+            line-height: 12px;
+        }
+
+        .product-info p {
+            margin: 1px 0;
+        }
+
+        .brand {
+            font-weight: bold;
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .price {
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 9px;
+        }
+
+        .rating {
+            font-weight: bold;
+        }
+
+        /* =========================
+           BUY BUTTON
+        ========================= */
+
+        .buy-btn {
+            margin-top: 7px;
+
+            padding: 5px 8px;
+
+            background-color: #333;
+            color: white;
+
+            border: none;
+            border-radius: 3px;
+
+            font-size: 9px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: background-color 0.2s ease,
+                        transform 0.2s ease;
+        }
+
+        .buy-btn:hover {
+            background-color: #000;
+            transform: scale(1.05);
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            #productContainer {
+                gap: 15px;
+            }
+
+            .product-card {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 18px;
+            }
+
+            #productContainer {
+                padding: 0 10px;
+                gap: 12px;
+            }
+
+            .product-card {
+                width: 145px;
+            }
+        }
+
+        @media (max-width: 350px) {
+
+            .product-card {
+                width: 140px;
+            }
+
+            .product-image {
+                width: 110px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         PAGE TITLE
+    ========================== -->
+
+    <h1>Welcome to my Perfume Store</h1>
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================== -->
+
+    <div id="productContainer"></div>
+
+
+    <script>
+
+        // ==========================================
+        // PERFUME DATA
+        // ==========================================
+
+        const perfumes = [
+
+            {
+                brand: "CHANEL",
+                name: "No. 5 Elixir",
+                price: "8999/-",
+                description: "Timeless floral-aldehyde",
+                rating: "4.8",
+                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "DIOR",
+                name: "Sauvage Noir",
+                price: "7499/-",
+                description: "Bold spicy woody signature",
+                rating: "4.7",
+                image: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "YSL",
+                name: "Black Opium",
+                price: "6999/-",
+                description: "Addictive coffee-vanilla",
+                rating: "4.6",
+                image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "GUCCI",
+                name: "Bloom Intense",
+                price: "6499/-",
+                description: "Lush white floral bouquet",
+                rating: "4.5",
+                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "TOM FORD",
+                name: "Oud Wood",
+                price: "12999/-",
+                description: "Rare oud and sandalwood",
+                rating: "4.9",
+                image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "VERSACE",
+                name: "Eros Energy",
+                price: "5499/-",
+                description: "Fresh mint and citrus burst",
+                rating: "4.4",
+                image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "ARMANI",
+                name: "Acqua di Gio",
+                price: "6299/-",
+                description: "Marine aquatic freshness",
+                rating: "4.7",
+                image: "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "CALVIN KLEIN",
+                name: "Eternity",
+                price: "4499/-",
+                description: "Romantic floral-woody blend",
+                rating: "4.3",
+                image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "HERMES",
+                name: "Terre d'Hermes",
+                price: "8299/-",
+                description: "Mineral orange woody trail",
+                rating: "4.8",
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "JO MALONE",
+                name: "Wood Sage & Sea Salt",
+                price: "9499/-",
+                description: "Ambrette seed and sea salt",
+                rating: "4.6",
+                image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "BURBERRY",
+                name: "Her Elixir",
+                price: "6799/-",
+                description: "Dark berry and amber",
+                rating: "4.5",
+                image: "https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "PRADA",
+                name: "Paradoxe",
+                price: "7199/-",
+                description: "Modern floral musk",
+                rating: "4.6",
+                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "DOLCE & GABBANA",
+                name: "Light Blue",
+                price: "5199/-",
+                description: "Sicilian lemon and cedar",
+                rating: "4.7",
+                image: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "BVLGARI",
+                name: "Man in Black",
+                price: "5699/-",
+                description: "Rum and tuberose spice",
+                rating: "4.4",
+                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "CAROLINA HERRERA",
+                name: "Good Girl",
+                price: "7999/-",
+                description: "Tuberosе and cocoa",
+                rating: "4.8",
+                image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "PACO RABANNE",
+                name: "1 Million",
+                price: "5899/-",
+                description: "Cinnamon leather gold",
+                rating: "4.5",
+                image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "MONTBLANC",
+                name: "Explorer",
+                price: "4799/-",
+                description: "Vetyver and bergamot trail",
+                rating: "4.3",
+                image: "https://images.unsplash.com/photo-1557170334-a9632e77c6e4?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "HUGO BOSS",
+                name: "Bottled",
+                price: "4299/-",
+                description: "Apple and cedarwood classic",
+                rating: "4.2",
+                image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "LANCOME",
+                name: "La Vie Est Belle",
+                price: "7599/-",
+                description: "Iris praline gourmand",
+                rating: "4.9",
+                image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=500&q=80"
+            },
+
+            {
+                brand: "GIVENCHY",
+                name: "Gentleman",
+                price: "5699/-",
+                description: "Iris and pear elegance",
+                rating: "4.6",
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=500&q=80"
+            }
+
+        ];
+
+
+        // ==========================================
+        // SELECT PRODUCT CONTAINER
+        // ==========================================
+
+        const productContainer =
+            document.getElementById("productContainer");
+
+
+        // ==========================================
+        // DISPLAY PRODUCTS
+        // ==========================================
+
+        perfumes.forEach((perfume) => {
+
+            const card = document.createElement("div");
+
+            card.classList.add("product-card");
+
+
+            card.innerHTML = `
+
+                <img
+                    class="product-image"
+                    src="${perfume.image}"
+                    alt="${perfume.name}"
+                >
+
+                <div class="product-info">
+
+                    <p>
+                        <span class="brand">Brand:</span>
+                        ${perfume.brand}
+                    </p>
+
+                    <p>
+                        <span class="product-name">Perfume:</span>
+                        ${perfume.name}
+                    </p>
+
+                    <p>
+                        <span class="price">Price:</span>
+                        ${perfume.price}
+                    </p>
+
+                    <p class="description">
+                        <strong>Desc:</strong>
+                        ${perfume.description}
+                    </p>
+
+                    <p class="rating">
+                        Rating: ${perfume.rating}
+                    </p>
+
+                </div>
+
+                <button
+                    class="buy-btn"
+                    onclick="buyProduct('${perfume.name}')"
+                >
+                    BUY NOW
+                </button>
+
+            `;
+
+
+            productContainer.appendChild(card);
+
+        });
+
+
+        // ==========================================
+        // BUY BUTTON FUNCTION
+        // ==========================================
+
+        function buyProduct(productName) {
+
+            alert(
+                "You selected: " +
+                productName +
+                "\n\nThank you for shopping with us!"
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
